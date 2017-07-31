@@ -1,18 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
+import Crossword from "./components/Crossword";
 
-const component = () => {
+const rootElement = () => {
   const element = document.createElement("div");
-
-  element.innerHTML = _.join(["Hello ", "webpack"], "");
   element.id = "root";
-
   return element;
 };
 
-document.body.appendChild(component());
+document.body.appendChild(rootElement());
 
-const Element = () => <div>REACT COMPONENT</div>;
-
-ReactDOM.render(<Element />, document.getElementById("root"));
+ReactDOM.render(<Crossword />, document.getElementById("root"));
