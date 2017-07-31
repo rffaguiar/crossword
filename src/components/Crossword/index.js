@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import Board from "../Board";
 
-import css from "./style.css";
+import css from "./style.scss";
 
 const TemporaryRoadmap = () =>
   <div>
@@ -21,7 +21,7 @@ const TemporaryRoadmap = () =>
   </div>;
 
 const Crossword = () =>
-  <div className="Crossword">
+  <div className={css.Crossword}>
     <div>
       <TemporaryRoadmap />
       <Board />

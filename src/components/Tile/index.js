@@ -59,20 +59,20 @@ class Tile extends React.Component {
     }
 
     return (
-      <div className="Tile">
+      <div className={css.Tile}>
         {!_.isEmpty(originNumbers) &&
-          <span className="originNumbers">
+          <span className={css.originNumbers}>
             {originNumbers}
           </span>}
         <input
           type="text"
           className={cn(
-            "tileInput",
+            css.tileInput,
             {
-              noWord: _.isEmpty(this.props.wordId)
+              [css.noWord]: _.isEmpty(this.props.wordId)
             },
             {
-              wordPressed: this.shouldPress()
+              [css.wordPressed]: this.shouldPress()
             }
           )}
           onClick={this.handleClick}

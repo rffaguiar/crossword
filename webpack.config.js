@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
@@ -17,7 +18,34 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
+            }
+          },
+          "postcss-loader"
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
+            }
+          },
+          "postcss-loader",
+          "sass-loader"
+        ]
       },
       {
         test: /\.(js|jsx)$/,
@@ -32,6 +60,7 @@ module.exports = {
     ]
   },
   plugins: [
+    // new ExtractTextPlugin("styles.css"),
     new CleanWebpackPlugin(["dist"]),
     new HtmlWebpackPlugin({
       title: "Output Management"

@@ -144,7 +144,7 @@ class Board extends React.Component {
     });
 
     return (
-      <div className="Board">
+      <div className={css.Board}>
         {board}
         <br />
         <button onClick={this.checkWords}>Check Words</button>
