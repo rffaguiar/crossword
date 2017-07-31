@@ -1,11 +1,12 @@
+// @flow
+
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import Crossword from "./components/Crossword";
 
-const rootElement = () => {
+const rootElement = (idName: string = "root") => {
   const element = document.createElement("div");
-  element.id = "root";
+  element.id = idName;
   return element;
 };
 
