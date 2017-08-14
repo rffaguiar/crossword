@@ -37,6 +37,6 @@ input:focus {
   font-size: 14px;
 }
 
-.wordPressed {
+.wordSelected {
   background-color: #ddd;
 }

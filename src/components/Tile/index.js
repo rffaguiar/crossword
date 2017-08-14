@@ -9,33 +9,42 @@ class Tile extends React.Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.shouldPress = this.shouldPress.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    this.isWordOnFocus = this.isWordOnFocus.bind(this);
   }
 
   handleClick() {
     this.props.onClick(this);
   }
 
-  handleKeyPress(e) {
-    this.props.onKeyPress(this);
+  handleKeyUp(e) {
+    this.props.onKeyUp(this, e);
   }
 
-  handleChange(event) {
-    this.props.updateValue(this.props.id, event.target.value);
-  }
+  // handleChange(event) {
+  //   this.props.updateValue(this.props.id, event.target.value);
+  // }
 
-  shouldPress() {
-    return _.intersection(this.props.wordId, this.props.highlightIds).length;
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
+  isWordOnFocus() {
+    return _.intersection(this.props.wordId, this.props.wordsPressedIds).length;
   }
 
   componentDidUpdate() {
     if (this.props.wordId.includes(this.props.previousTile.wordId)) {
+      if (this.props.deletedValue) {
+        console.log("fix this and implement backspace");
+        if (this.props.previousTile.x == this.props.x) {
+          this.textInput.focus();
+          return;
+        }
+
+        // if (this.props.previousTile.y == this.props.y) {
+        //   this.textInput.focus();
+        //   return;
+        // }
+      }
+
       if (this.props.x - this.props.previousTile.x == 1) {
         this.textInput.focus();
         return;
@@ -72,12 +81,12 @@ class Tile extends React.Component {
               [css.noWord]: _.isEmpty(this.props.wordId)
             },
             {
-              [css.wordPressed]: this.shouldPress()
+              [css.wordSelected]: this.props.wordSelected
             }
           )}
           onClick={this.handleClick}
-          onKeyPress={this.handleKeyPress}
-          onChange={this.handleChange}
+          onKeyUp={this.handleKeyUp}
+          // onChange={this.handleChange}
           ref={input => {
             this.textInput = input;
           }}

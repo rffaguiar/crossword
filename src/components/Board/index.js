@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import cn from "classnames";
 
 import WORDS from "../../constants/words";
 import INITIAL_BOARD from "../../constants/board";
@@ -13,16 +14,17 @@ class Board extends React.Component {
     super(props);
 
     this.state = {
-      previousTile: {},
-      wordsPressed: [],
+      previousTile: {}, // position and word's id on focus
+      wordsPressed: [], // ids of words pressed
       board: INITIAL_BOARD,
       incorrectWordsNumber: 0
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleUpdateTileValue = this.handleUpdateTileValue.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    // this.handleUpdateTileValue = this.handleUpdateTileValue.bind(this);
     this.checkWords = this.checkWords.bind(this);
+    this.isWordOnFocus = this.isWordOnFocus.bind(this);
   }
 
   handleClick(tile) {
@@ -32,14 +34,32 @@ class Board extends React.Component {
     });
   }
 
-  handleKeyPress(tile) {
+  handleKeyUp(tile, e) {
+    const indexTileToUpdate = _.findIndex(
+      this.state.board,
+      i => i.id == tile.props.id
+    );
+
+    let newBoard = this.state.board;
+    let deletedValue = false;
+
+    if (e.keyCode == 8) {
+      //backspace
+      newBoard[indexTileToUpdate].value = "";
+      deletedValue = true;
+    } else {
+      newBoard[indexTileToUpdate].value = e.key;
+    }
+
     if (_.isEmpty(this.state.previousTile)) {
       this.setState({
         previousTile: {
           wordId: tile.props.wordId[0],
           x: tile.props.x,
           y: tile.props.y
-        }
+        },
+        board: newBoard,
+        deletedValue: deletedValue
       });
     } else {
       // console.log("keep the wordId, update only x,y");
@@ -48,26 +68,27 @@ class Board extends React.Component {
           wordId: this.state.previousTile.wordId,
           x: tile.props.x,
           y: tile.props.y
-        }
+        },
+        board: newBoard,
+        deletedValue: deletedValue
       });
     }
   }
 
-  handleUpdateTileValue(newTileId, newTileValue) {
-    const indexTileToUpdate = _.findIndex(
-      this.state.board,
-      tile => tile.id == newTileId
-    );
-
-    let newBoard = this.state.board;
-    newBoard[indexTileToUpdate].value = newTileValue;
-    this.setState({
-      board: newBoard
-    });
-  }
+  // handleUpdateTileValue(newTileId, newTileValue) {
+  //   const indexTileToUpdate = _.findIndex(
+  //     this.state.board,
+  //     tile => tile.id == newTileId
+  //   );
+  //
+  //   let newBoard = this.state.board;
+  //   newBoard[indexTileToUpdate].value = newTileValue;
+  //   this.setState({
+  //     board: newBoard
+  //   });
+  // }
 
   checkWords() {
-    console.log("checking cherry");
     // get all tiles with wordId 1,
     // compare the values of each one and check with the correct word
     let tempBoard = this.state.board;
@@ -118,6 +139,10 @@ class Board extends React.Component {
     }
   }
 
+  isWordOnFocus(tile) {
+    return _.intersection(tile.wordId, this.state.wordsPressed).length;
+  }
+
   componentDidUpdate() {
     console.log("showing board");
     console.log(this.state.board);
@@ -128,8 +153,8 @@ class Board extends React.Component {
       return (
         <Tile
           onClick={this.handleClick}
-          onKeyPress={this.handleKeyPress}
-          updateValue={this.handleUpdateTileValue}
+          onKeyUp={this.handleKeyUp}
+          // updateValue={this.handleUpdateTileValue}
           previousTile={this.state.previousTile}
           key={i}
           origins={tile.origin}
@@ -138,7 +163,8 @@ class Board extends React.Component {
           wordId={tile.wordId}
           id={tile.id}
           value={tile.value}
-          highlightIds={this.state.wordsPressed}
+          wordSelected={this.isWordOnFocus(tile)}
+          deletedValue={this.state.deletedValue}
         />
       );
     });
