@@ -22,7 +22,6 @@ class Board extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    // this.handleUpdateTileValue = this.handleUpdateTileValue.bind(this);
     this.checkWords = this.checkWords.bind(this);
     this.isWordOnFocus = this.isWordOnFocus.bind(this);
   }
@@ -74,19 +73,6 @@ class Board extends React.Component {
       });
     }
   }
-
-  // handleUpdateTileValue(newTileId, newTileValue) {
-  //   const indexTileToUpdate = _.findIndex(
-  //     this.state.board,
-  //     tile => tile.id == newTileId
-  //   );
-  //
-  //   let newBoard = this.state.board;
-  //   newBoard[indexTileToUpdate].value = newTileValue;
-  //   this.setState({
-  //     board: newBoard
-  //   });
-  // }
 
   checkWords() {
     // get all tiles with wordId 1,
@@ -154,7 +140,6 @@ class Board extends React.Component {
         <Tile
           onClick={this.handleClick}
           onKeyUp={this.handleKeyUp}
-          // updateValue={this.handleUpdateTileValue}
           previousTile={this.state.previousTile}
           key={i}
           origins={tile.origin}

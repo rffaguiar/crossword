@@ -23,7 +23,6 @@ const TemporaryRoadmap = () =>
 const Crossword = () =>
   <div className={css.Crossword}>
     <div>
-      <TemporaryRoadmap />
       <Board />
     </div>
   </div>;

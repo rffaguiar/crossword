@@ -2,6 +2,8 @@ import React from "react";
 import _ from "lodash";
 import cn from "classnames";
 
+import ALLOWED_LETTERS from "../../constants/allowed_letters";
+
 import css from "./style.css";
 
 class Tile extends React.Component {
@@ -10,21 +12,31 @@ class Tile extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
     this.isWordOnFocus = this.isWordOnFocus.bind(this);
   }
 
   handleClick() {
+    this.textInput.select(); //always use select to remove current word if we have something on it.
     this.props.onClick(this);
   }
 
   handleKeyUp(e) {
+    // only allow letters and backspace
+    const lowerKey = e.key.toLowerCase();
+    if (_.indexOf(ALLOWED_LETTERS, lowerKey) == -1) {
+      return;
+    }
+
+    if (_.indexOf(ALLOWED_LETTERS, lowerKey) >= 0) {
+      console.log("the letter is allowed");
+      console.log("lowerKey: ", lowerKey);
+    } else {
+      console.log("the letter INST allowed");
+      console.log("lowerKey: ", lowerKey);
+    }
+
     this.props.onKeyUp(this, e);
   }
-
-  // handleChange(event) {
-  //   this.props.updateValue(this.props.id, event.target.value);
-  // }
 
   isWordOnFocus() {
     return _.intersection(this.props.wordId, this.props.wordsPressedIds).length;
@@ -33,25 +45,36 @@ class Tile extends React.Component {
   componentDidUpdate() {
     if (this.props.wordId.includes(this.props.previousTile.wordId)) {
       if (this.props.deletedValue) {
-        console.log("fix this and implement backspace");
-        if (this.props.previousTile.x == this.props.x) {
-          this.textInput.focus();
+        console.log("value was deleted", this);
+
+        if (this.props.previousTile.x - 1 == this.props.x) {
+          console.log("focusing previous, X axis");
+          this.textInput.select();
           return;
         }
 
-        // if (this.props.previousTile.y == this.props.y) {
-        //   this.textInput.focus();
-        //   return;
-        // }
+        if (this.props.previousTile.y - 1 == this.props.y) {
+          console.log("focusing previous, Y axis");
+          this.textInput.select();
+          return;
+        }
       }
 
-      if (this.props.x - this.props.previousTile.x == 1) {
-        this.textInput.focus();
+      if (
+        this.props.x - this.props.previousTile.x == 1 &&
+        !this.props.deletedValue
+      ) {
+        console.log("focusing next tile, X axis");
+        this.textInput.select();
         return;
       }
 
-      if (this.props.y - this.props.previousTile.y == 1) {
-        this.textInput.focus();
+      if (
+        this.props.y - this.props.previousTile.y == 1 &&
+        !this.props.deletedValue
+      ) {
+        console.log("focusing next tile, Y axis");
+        this.textInput.select();
         return;
       }
     }
@@ -86,7 +109,6 @@ class Tile extends React.Component {
           )}
           onClick={this.handleClick}
           onKeyUp={this.handleKeyUp}
-          // onChange={this.handleChange}
           ref={input => {
             this.textInput = input;
           }}
