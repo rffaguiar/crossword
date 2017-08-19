@@ -83,11 +83,21 @@ class Tile extends React.Component {
   render() {
     let originNumbers = "";
     if (this.props.origins.length) {
-      originNumbers = this.props.origins.map((origin, i) =>
-        <small key={i}>
-          {origin}
-        </small>
-      );
+      originNumbers = this.props.origins.map((origin, i) => {
+        if (i === this.props.origins.length - 1) {
+          return (
+            <small key={i}>
+              {origin}
+            </small>
+          );
+        } else {
+          return (
+            <small key={i}>
+              {origin}/
+            </small>
+          );
+        }
+      });
     }
 
     return (
