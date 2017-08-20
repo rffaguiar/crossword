@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import ALLOWED_LETTERS from "../../constants/allowed_letters";
 
-import css from "./style.css";
+import css from "./style.scss";
 
 class Tile extends React.Component {
   constructor(props) {
@@ -25,14 +25,6 @@ class Tile extends React.Component {
     const lowerKey = e.key.toLowerCase();
     if (_.indexOf(ALLOWED_LETTERS, lowerKey) == -1) {
       return;
-    }
-
-    if (_.indexOf(ALLOWED_LETTERS, lowerKey) >= 0) {
-      console.log("the letter is allowed");
-      console.log("lowerKey: ", lowerKey);
-    } else {
-      console.log("the letter INST allowed");
-      console.log("lowerKey: ", lowerKey);
     }
 
     this.props.onKeyUp(this, e);

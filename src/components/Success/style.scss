@@ -1,0 +1,44 @@
+$color-frame: #4c5854;
+
+.Success {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  opacity: 0;
+  padding: 30px;
+  position: relative;
+
+  transition: opacity 1s;
+  z-index: 1;
+
+  &::before {
+    background-color: #fff;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: rotate3d(-1, 1, 0, 25deg);
+    transition: all .3s ease-out;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &::after {
+    background-color: $color-frame;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: rotate3d(1, 1, 0, 25deg);
+    transition: all .3s ease-out;
+    width: 100%;
+    z-index: -2;
+  }
+}
+
+.showMe {
+  opacity: 1;
+}

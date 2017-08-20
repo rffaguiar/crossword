@@ -1,3 +1,5 @@
+$bg-color: #77a596;
+
 .Tips {
   display: flex;
   flex-basis: 400px;
@@ -6,9 +8,16 @@
 }
 
 li {
-  margin-bottom: 10px;
+  padding: 5px;
+  transition: background-color .2s ease-in;
 }
 
 .isPressed {
-  background-color: red;
+  background-color: darken($bg-color, 10%);
+}
+
+@media (max-width: 767px) {
+  ol {
+    padding-left: 0;
+  }
 }

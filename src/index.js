@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Board from "./components/Board";
-import "./styles.css";
+import "./styles.scss";
 
 const rootElement = (idName: string = "root") => {
   const element = document.createElement("div");
@@ -11,6 +11,24 @@ const rootElement = (idName: string = "root") => {
   return element;
 };
 
+const googleFonts = () => {
+  const link = document.createElement("link");
+  link.href = "https://fonts.googleapis.com/css?family=Lato";
+  link.rel = "stylesheet";
+  return link;
+};
+
+const metaViewport = () => {
+  const meta = document.createElement("meta");
+
+  meta.name = "viewport";
+  meta.content = "width=device-width, initial-scale=1";
+
+  return meta;
+};
+
 document.body.appendChild(rootElement());
+document.head.appendChild(metaViewport());
+document.head.appendChild(googleFonts());
 
 ReactDOM.render(<Board />, document.getElementById("root"));

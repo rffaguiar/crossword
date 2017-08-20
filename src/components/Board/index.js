@@ -2,11 +2,12 @@ import React from "react";
 import _ from "lodash";
 import cn from "classnames";
 
-import WORDS from "../../constants/words";
-import INITIAL_BOARD from "../../constants/board";
-
 import Tile from "../Tile";
 import Tips from "../Tips";
+import Success from "../Success";
+
+import WORDS from "../../constants/words";
+import INITIAL_BOARD from "../../constants/board";
 
 import css from "./style.scss";
 
@@ -20,7 +21,7 @@ class Board extends React.Component {
       previousTile: {}, // position and word's id on focus
       wordsPressed: [], // ids of words pressed
       board: INITIAL_BOARD,
-      incorrectWordsNumber: 0
+      incorrectWordsNumber: 10
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -159,20 +160,32 @@ class Board extends React.Component {
 
     return (
       <div className={css.gameContainer}>
-        <div className={css.boardContainer}>
-          <div className={css.Board}>
-            {board}
-          </div>
-          <div>
-            <button className={css.checkWordsBt} onClick={this.checkWords}>
-              Check Words
-            </button>
-            <p>
-              Incorrect Words: {this.state.incorrectWordsNumber}
-            </p>
-          </div>
-        </div>
-        <Tips words={WORDS} wordsPressed={this.state.wordsPressed} />
+        {this.state.incorrectWordsNumber === 9
+          ? <Success />
+          : [
+              <h1 key="0">
+                Crossword <span>(almost)</span>
+              </h1>,
+              <div key="1" className={css.panels}>
+                <div className={css.boardContainer}>
+                  <div className={css.Board}>
+                    {board}
+                  </div>
+                  <div className={css.buttons}>
+                    <button
+                      className={css.checkWordsBt}
+                      onClick={this.checkWords}
+                    >
+                      Check Words
+                    </button>
+                    <p>
+                      Incorrect Words: {this.state.incorrectWordsNumber}
+                    </p>
+                  </div>
+                </div>
+                <Tips words={WORDS} wordsPressed={this.state.wordsPressed} />
+              </div>
+            ]}
       </div>
     );
   }

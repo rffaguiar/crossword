@@ -7,8 +7,9 @@ const WORDS = [
   { id: 2, word: "avocado", tip: "a.k.a. alligator pear." },
   {
     id: 3,
-    word: "fig",
-    tip: "Come on, three letters. i g f."
+    word: "pear",
+    tip:
+      'Pomaceous fruit. It seems like an apple. You can use the term "pyriform" to it... :)'
   },
   { id: 4, word: "carrot", tip: "Rabbits, rabbits, rabbits. Root vegetable." },
   { id: 5, word: "apple", tip: "Fruit. Famous technology company..." },
@@ -24,7 +25,7 @@ const WORDS = [
     tip:
       "Yellow and naturally slightly radioactive. Edible fruit, botanically a berry."
   },
-  { id: 8, word: "grape", tip: "Ok this is free. Wines are made of it." },
+  { id: 8, word: "apricot", tip: "Orange fruit. Drupe. 4th month." },
   {
     id: 9,
     word: "endive",
