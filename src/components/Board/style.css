@@ -1,6 +1,0 @@
-.Board {
-  max-width: 340px;
-  max-height: 340px;
-  display: flex;
-  flex-flow: row wrap;
-}

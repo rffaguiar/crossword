@@ -1,0 +1,28 @@
+.gameContainer {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.boardContainer {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.Board {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 20px;
+  max-height: 340px;
+  max-width: 340px;
+}
+
+.checkWordsBt {
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  padding: 15px;
+}

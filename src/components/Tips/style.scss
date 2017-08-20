@@ -1,0 +1,14 @@
+.Tips {
+  display: flex;
+  flex-basis: 400px;
+  flex-flow: column wrap;
+  margin-left: 30px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+.isPressed {
+  background-color: red;
+}

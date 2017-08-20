@@ -6,8 +6,11 @@ import WORDS from "../../constants/words";
 import INITIAL_BOARD from "../../constants/board";
 
 import Tile from "../Tile";
+import Tips from "../Tips";
 
-import css from "./style.css";
+import css from "./style.scss";
+
+// https://www.theguardian.com/crosswords/quick/14716#7-down
 
 class Board extends React.Component {
   constructor(props) {
@@ -155,14 +158,21 @@ class Board extends React.Component {
     });
 
     return (
-      <div className={css.Board}>
-        {board}
-        <br />
-        <button onClick={this.checkWords}>Check Words</button>
-        <br />
-        <div>
-          Incorrect Words: {this.state.incorrectWordsNumber}
+      <div className={css.gameContainer}>
+        <div className={css.boardContainer}>
+          <div className={css.Board}>
+            {board}
+          </div>
+          <div>
+            <button className={css.checkWordsBt} onClick={this.checkWords}>
+              Check Words
+            </button>
+            <p>
+              Incorrect Words: {this.state.incorrectWordsNumber}
+            </p>
+          </div>
         </div>
+        <Tips words={WORDS} wordsPressed={this.state.wordsPressed} />
       </div>
     );
   }

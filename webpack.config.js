@@ -1,13 +1,11 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require("webpack");
 
 module.exports = {
   entry: {
-    app: "./src/index.js",
-    react: "./src/react.jsx"
+    app: "./src/index.js"
   },
   devtool: "inline-source-map",
   devServer: {
@@ -60,10 +58,9 @@ module.exports = {
     ]
   },
   plugins: [
-    // new ExtractTextPlugin("styles.css"),
     new CleanWebpackPlugin(["dist"]),
     new HtmlWebpackPlugin({
-      title: "Output Management"
+      title: "Crossword Board"
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
