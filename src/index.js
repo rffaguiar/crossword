@@ -1,9 +1,9 @@
 // @flow
 
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import Board from "./components/Board";
-import "./styles.scss";
+import "./style.scss";
 
 const rootElement = (idName: string = "root") => {
   const element = document.createElement("div");
@@ -27,8 +27,8 @@ const metaViewport = () => {
   return meta;
 };
 
-document.body.appendChild(rootElement());
-document.head.appendChild(metaViewport());
-document.head.appendChild(googleFonts());
+window.document.body.appendChild(rootElement());
+window.document.head.appendChild(metaViewport());
+window.document.head.appendChild(googleFonts());
 
 ReactDOM.render(<Board />, document.getElementById("root"));

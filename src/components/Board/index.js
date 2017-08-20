@@ -1,4 +1,6 @@
-import React from "react";
+// @flow
+
+import * as React from "react";
 import _ from "lodash";
 import cn from "classnames";
 
@@ -13,31 +15,42 @@ import css from "./style.scss";
 
 // https://www.theguardian.com/crosswords/quick/14716#7-down
 
-class Board extends React.Component {
-  constructor(props) {
-    super(props);
+type Props = {||};
+
+type State = {|
+  previousTile: any,
+  wordsPressed: Array<number>,
+  board: Array<Object>,
+  incorrectWordsNumber: number,
+  deletedValue: boolean
+|};
+
+class Board extends React.Component<Props, State> {
+  constructor(...args: Array<*>) {
+    super(...args);
 
     this.state = {
       previousTile: {}, // position and word's id on focus
       wordsPressed: [], // ids of words pressed
       board: INITIAL_BOARD,
-      incorrectWordsNumber: 10
+      incorrectWordsNumber: 10,
+      deletedValue: false
     };
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.checkWords = this.checkWords.bind(this);
-    this.isWordOnFocus = this.isWordOnFocus.bind(this);
+    (this: any).handleClick = this.handleClick.bind(this);
+    (this: any).handleKeyUp = this.handleKeyUp.bind(this);
+    (this: any).checkWords = this.checkWords.bind(this);
+    (this: any).isWordOnFocus = this.isWordOnFocus.bind(this);
   }
 
-  handleClick(tile) {
+  handleClick(tile: React.Element<any>) {
     this.setState({
       wordsPressed: tile.props.wordId,
       previousTile: {}
     });
   }
 
-  handleKeyUp(tile, e) {
+  handleKeyUp(tile: any, e: SyntheticKeyboardEvent<any>) {
     const indexTileToUpdate = _.findIndex(
       this.state.board,
       i => i.id == tile.props.id
@@ -55,7 +68,7 @@ class Board extends React.Component {
     }
 
     if (_.isEmpty(this.state.previousTile)) {
-      this.setState({
+      const newState = {
         previousTile: {
           wordId: tile.props.wordId[0],
           x: tile.props.x,
@@ -63,10 +76,12 @@ class Board extends React.Component {
         },
         board: newBoard,
         deletedValue: deletedValue
-      });
+      };
+
+      this.setState((newState: any));
     } else {
       // console.log("keep the wordId, update only x,y");
-      this.setState({
+      const anotherState = {
         previousTile: {
           wordId: this.state.previousTile.wordId,
           x: tile.props.x,
@@ -74,7 +89,9 @@ class Board extends React.Component {
         },
         board: newBoard,
         deletedValue: deletedValue
-      });
+      };
+
+      this.setState((anotherState: any));
     }
   }
 
@@ -83,7 +100,7 @@ class Board extends React.Component {
     // compare the values of each one and check with the correct word
     let tempBoard = this.state.board;
     let selectedTiles = [];
-    let userWord = [];
+    let userWord = ([]: any);
     let correctWord = [];
     let incorrectWords = 0;
 
@@ -129,7 +146,7 @@ class Board extends React.Component {
     }
   }
 
-  isWordOnFocus(tile) {
+  isWordOnFocus(tile: any) {
     return _.intersection(tile.wordId, this.state.wordsPressed).length;
   }
 

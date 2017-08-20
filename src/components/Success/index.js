@@ -14,7 +14,6 @@ class Success extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Success didMount");
     this.setState({
       didMount: true
     });
