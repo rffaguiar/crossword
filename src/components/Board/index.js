@@ -177,7 +177,7 @@ class Board extends React.Component<Props, State> {
 
     return (
       <div className={css.gameContainer}>
-        {this.state.incorrectWordsNumber === 9
+        {this.state.incorrectWordsNumber === 0
           ? <Success />
           : [
               <h1 key="0">
