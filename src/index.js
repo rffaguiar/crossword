@@ -16,6 +16,7 @@ const googleFonts = () => {
   link.href = "https://fonts.googleapis.com/css?family=Lato";
   link.rel = "stylesheet";
   return link;
+
 };
 
 const metaViewport = () => {
